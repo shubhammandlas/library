@@ -2,10 +2,9 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const { Sequelize } = require('sequelize');
-const Book = require('./service/book')
-const Library = require('./service/library')
+const Book = require('./src/service/book')
+const Library = require('./src/service/library')
 const db = require('../models');
-
 
 const sequelize = new Sequelize('postgres://:@localhost:5432/dbname') // Example for postgres
 

@@ -1,3 +1,7 @@
+const {BookType} = require('../commons/enums')
+const { Sequelize } = require('sequelize');
+
+
 'use strict';
 const {
   Model
@@ -16,10 +20,12 @@ module.exports = (sequelize, DataTypes) => {
   Book.init({
     name: DataTypes.STRING,
     author: DataTypes.STRING,
-    stock: DataTypes.INTEGER
+    stock: DataTypes.INTEGER,
+    type: Sequelize.ENUM(Object.keys(BookType)),
   }, {
     sequelize,
     modelName: 'Book',
   });
   return Book;
 };
+

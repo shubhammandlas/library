@@ -6,6 +6,7 @@ class Book {
         this.name = name;
         this.author = author;
         this.stock = stock;
+        this.type = type;
     }
 
     get_name() {

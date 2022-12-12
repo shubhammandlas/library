@@ -3,6 +3,7 @@ import { query } from 'express';
 const db = require('../models');
 const User = require('./user')
 const Book = require('./book')
+const {BookTypeAndPrice} = require('./book')
 
 class Library {
     constructor(db){
@@ -83,8 +84,8 @@ class Library {
     calculateRent(book_object, returnedBook) {
         const query = `SELECT * from Booking where book_id = ${book_object.book_Id} AND user_id = ${this.user_id}`;
         const booking = this.db.sequelize.query(query)
-        const days = Math.floor(((booking.createdAt()).getTime() - (new Date()).getTime()) / (24*60*60*1000))
-        this.total_rent += days * 1 * returnedBook.quantity
+        const days = Math.floor(((booking.createdAt()).getTime() - (new Date()).getTime()) / (24*60*60*1000));
+        this.total_rent += days * BookTypeAndPrice.value(book_object.type) * returnedBook.quantity;
         return booking
     }
 
