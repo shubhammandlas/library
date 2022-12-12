@@ -12,8 +12,6 @@ const sequelize = new Sequelize('postgres://:@localhost:5432/dbname') // Example
 app.post('/rent', rentBooks);
 app.post('/return', returnBooks);
 app.post('/addBooks', createBookEntry);
-// app.get('');
-// app.post('/rent', )
 
 app.listen(port,()=>{
     console.log(`Example app listening on port ${port}`);
@@ -47,15 +45,15 @@ function returnBooks(req, res) {
 }
 
 function createBookEntry(req, res) {
-    payload = {
-        books: [
-            {
-                name: "Why we sleep",
-                author: "Mathew Walker",
-                quantity: 4
-            }
-        ]
-    }
+    // payload = {
+    //     books: [
+    //         {
+    //             name: "Why we sleep",
+    //             author: "Mathew Walker",
+    //             quantity: 4
+    //         }
+    //     ]
+    // }
     const book = new Book();
     book.createBookEntry(book)
 }
