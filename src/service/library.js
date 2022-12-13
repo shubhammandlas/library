@@ -3,7 +3,7 @@ import { query } from 'express';
 const db = require('../models');
 const User = require('./user')
 const Book = require('./book')
-const {BookTypeAndPrice} = require('./book')
+const BookTypeAndPrice = require('../commons/enums')
 
 class Library {
     constructor(db){
@@ -85,7 +85,11 @@ class Library {
         const query = `SELECT * from Booking where book_id = ${book_object.book_Id} AND user_id = ${this.user_id}`;
         const booking = this.db.sequelize.query(query)
         const days = Math.floor(((booking.createdAt()).getTime() - (new Date()).getTime()) / (24*60*60*1000));
-        this.total_rent += days * BookTypeAndPrice.value(book_object.type) * returnedBook.quantity;
+        const bookTypeObject = BookTypeAndPrice[book_object.type];
+        var rent = 0;
+        rent += bookTypeObject.baseCharge * bookTypeObject.minDays;
+        rent += (days - bookTypeObject.minDays) > 0 ? (days - bookTypeObject.minDays) * bookTypeObject.rent : 0;
+        this.total_rent += rent;
         return booking
     }
 

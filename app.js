@@ -37,6 +37,7 @@ function rentBooks(req, res) {
 }
 
 function returnBooks(req, res) {
+    // payload same as above
     const library = new Library(db)
     library.login_user(req.body)
     const rent = library.return_books(req.body)
