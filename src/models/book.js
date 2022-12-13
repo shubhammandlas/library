@@ -1,7 +1,6 @@
 const {BookType} = require('../commons/enums')
 const { Sequelize } = require('sequelize');
 
-
 'use strict';
 const {
   Model
@@ -25,7 +24,15 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Book',
-  });
+  }, {
+    indexes:[
+      {
+        unique: true,
+        fields: ['name']
+      }
+    ]
+  }
+  );
   return Book;
 };
 
